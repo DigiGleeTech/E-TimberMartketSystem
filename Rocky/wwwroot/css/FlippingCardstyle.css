@@ -1,0 +1,70 @@
+
+.atm{
+    cursor: pointer;
+    width: 380px;
+    height: 200px;
+    border-radius: 20px;
+}
+
+
+
+.front, .back {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    transition: transform .6s linear;
+}
+
+.front img{
+    height: 100%;
+}
+
+.front{
+    transform: perspective(600px) rotateX(0deg);
+}
+
+.back {
+    background-color: palevioletred;
+    transform: perspective(600px) rotateX(180deg);
+}
+
+.back-content {
+    background-color: palevioletred;
+    color: #2a3e50;
+    text-align: center;
+    width: 100%;
+    font-size: 28px;
+    letter-spacing: 2px;
+    line-height: 50px;
+}
+
+.atm:hover > .front {
+    transform: perspective(600px) rotateX(-180deg);
+}
+
+.atm:hover > .back {
+    transform: perspective(600px) rotateX(0deg);
+}
+
+//form
+#cardno{
+    margin-top: 30px;
+}
+.atm .back {
+    background: #8E0E00; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #1F1C18, #8E0E00); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/*Mobile view */
+@media only screen and (max-width: 450px) {
+    .atm {
+        cursor: pointer;
+        width: 300px;
+        height: 200px;
+        border-radius: 20px;
+    }
+
+}

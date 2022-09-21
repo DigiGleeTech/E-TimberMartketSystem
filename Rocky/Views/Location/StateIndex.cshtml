@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Rocky.Models.State>
+
+@{
+    ViewData["Title"] = "StateIndex";
+}
+
+<h1>State Index</h1>
+
+<p>
+    <a asp-action="CreateState">Add New State</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StateName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country.CountryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country.CountryName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

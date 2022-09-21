@@ -1,0 +1,17 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+@{
+    ViewBag.Title = "CreateRole";
+}
+
+<h2>Create Role</h2>
+
+@using (Html.BeginForm("UpsertRole", "Role"))
+{
+    <input type="hidden" value="@ViewBag.Id" />
+    <div class="form-group col-5">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class="form-control"})
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary btn-lg col-2 offset-3" /> 
+}

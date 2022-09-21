@@ -1,0 +1,350 @@
+﻿@model Rocky.Models.ViewModels.ProductUserVM
+
+
+    <link rel="stylesheet" href="~/css/FlippingCardstyle.css" />
+    <style>
+        .atm .back{
+            background: #333333;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to bottom, #dd1818, #333333);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to bottom, #dd1818, #333333); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        }
+    </style>
+<form method="post" >
+     <div asp-validation-summary="All" class="text-danger"></div>
+    <br />
+    <div class="backgroundWhiteBorder">
+        <div class="container">
+            <div class="card">
+                <div class="card-header bg-dark text-light ml-0 row container">
+                    <div class="col-6">
+                        <i class="fa fa-shopping-cart"></i> &nbsp;
+                        Order Summary
+                    </div>
+                    <div class="col-6 text-right">
+                        <a asp-action="Index" class="btn btn-outline-info btn-sm">Back to Cart</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="container rounded p-2">
+                        <div class="row">
+                            <div class="col-12 col-lg-7 pb-4">
+                                @*User details*@
+                                <div class="row">
+                                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="text-info">User Details:</span>
+                                    </h4>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label>Name</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="ApplicationUser.FullName" type="text" required class="form-control" />
+                                        <span asp-validation-for="ApplicationUser.FullName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label>Phone</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="ApplicationUser.PhoneNumber" type="text" required class="form-control" />
+                                        <span asp-validation-for="ApplicationUser.PhoneNumber"  class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="ApplicationUser.Email" type="text" required class="form-control" />
+                                        <span asp-validation-for="ApplicationUser.Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                @*User Details*@
+                               
+                                @*Cascade Location*@
+
+                                @if (@ViewBag.IsShippingDetailsAvailable)
+                                {
+                                    <div class="row">
+                                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-info">We Already Have your shipping Details</span> <br />
+                                        </h4>
+                                    </div>
+                                }else{
+                                    <div class="row">
+                                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-info">shipping Details is required</span> <br />
+                                        </h4>
+                                    </div>
+                                }
+                                 @*Hidden fields*@
+                                    <input type="hidden" value="@ViewBag.ShippinID" required asp-for="ApplicationUser.ShipOrder.Id" />
+                                @*Hidden fields*@
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label asp-for="ApplicationUser.FullName"></label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input asp-for="ApplicationUser.FullName" value="@ViewBag.FullName" required disabled type="text" class="form-control" />
+                                            <span asp-validation-for="ApplicationUser.FullName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                     <div class="row my-1">
+                                        <div class="col-3">
+                                            <label asp-for="ApplicationUser.ShipOrder.Country"></label>
+                                        </div>
+                                        <div class="col-9">
+                                             <select id="CountryList" asp-items="@ViewBag.Countries" required asp-for="ApplicationUser.ShipOrder.Country" class="form-control">
+                                                <option >-- Select Country --</option>
+                                             </select>
+                                         </div>
+                                    </div>   
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label asp-for="ApplicationUser.ShipOrder.State"></label>
+                                        </div>
+                                        <div class="col-9">
+                                             <select  id="StateList" asp-for="ApplicationUser.ShipOrder.State"required class="form-control">
+                                                    <option disabled>-- Select State --</option>
+                                             </select>
+                                         </div>
+                                    </div>   
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label asp-for="ApplicationUser.ShipOrder.Lga"></label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select id="LgaList" asp-for="ApplicationUser.ShipOrder.Lga" required class="form-control">
+                                                <option disabled>-- Select L.G.A/City --</option>
+                                            
+                                            </select>
+                                         </div>
+                                    </div>  
+                                    
+                                     @*Other details*@
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label asp-for="ApplicationUser.ShipOrder.PostCode"></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="ApplicationUser.ShipOrder.PostCode" type="text" required class="form-control" />
+                                        <span asp-validation-for="ApplicationUser.ShipOrder.PostCode"  class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label asp-for="ShipOrder.HouseNoOrBuilding"></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <textarea asp-for="ApplicationUser.ShipOrder.HouseNoOrBuilding" type="text" required class="form-control" ></textarea>
+                                        <span asp-validation-for="ShipOrder.HouseNoOrBuilding"  class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label asp-for="ApplicationUser.ShipOrder.Street"></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="ApplicationUser.ShipOrder.Street" type="text" required class="form-control" />
+                                        <span asp-validation-for="ApplicationUser.ShipOrder.Street" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                @*Other details*@
+                                @*Shipping Details*@
+                               
+                                     @*Shipping Details
+                                    <div class="row">
+                                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-info">We Already Have your shipping Details</span> <br />
+                                        </h4>
+                                        <button class="btn btn-outline-secondary text-dark" id="btnShipping"><i class="fas fa-dropbox"></i> Update Shipping Details</button>
+                                    </div>*@
+                                   
+                            </div>
+
+
+                            <div class="col-12 col-lg-5 row">
+                                <div class="col-12">
+                                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="text-info">Summary:</span>
+                                    </h4>
+                                    <ul class="list-group mb-3">
+                                        @for (int i=0;i< Model.ProductList.Count();i++)
+                                        {
+                                            <input type="hidden" asp-for="@Model.ProductList[i].Id" />
+                                            <input type="hidden" asp-for="@Model.ProductList[i].Name" />
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <div>
+                                                    <h6 class="my-0">@Model.ProductList[i].Name.ToUpper()</h6>
+                                                    <small class="text-muted">Price per Tim: $@Model.ProductList[i].Price</small>
+                                                </div>
+                                            </li>
+                                        }
+                                        @*Total amount summary*@
+                                        <ul class="list-group mb-3">
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <div>
+                                                    <input type="hidden" value="@ViewBag.ShippingFees" required asp-for="ShippingDetails.ShippingPrice" />
+                                                    <input type="hidden" value="@ViewBag.TotalAmount"required asp-for="Order.Amount" />
+                                                    <strong class="text-secondary">Total Price $@ViewBag.TotalPrice</strong><br />
+                                                    <strong class="text-secondary" >Shipping Fees $@ViewBag.ShippingFees</strong><br />
+                                                    <strong class="text-secondary">Total Amount $@ViewBag.TotalAmount</strong>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                           @*Total amount summary*@
+                                       @* @{
+                                            var ToatalPrice = 0;
+                                            var price = "";
+                                            var pri = "";
+                                            for (var i = 0; i <= Model.ProductList.Count(); i++)
+                                            {
+                                                pri += @Model.ProductList[i].Price;
+                                                price = pri;
+
+                                                for (var j = 0; j <=  Model.ProductList[i].Price; j++)
+                                                {
+                                                    j += j;
+                                                    ToatalPrice = j;
+                                                }
+                                           }
+                                           <strong> Total $@ToatalPrice</strong>
+                                            <strong> price $@price</strong>
+                                        }*@
+                                       
+                                    </ul>
+                                       <div class="card atm middle col-12" >
+                                           <div class="front">
+                                                <img src="/images/atm.jfif" width="100%" />
+                                           </div>
+                                           <div class="back">
+                                                <div class="back-content middle">
+                                                    <input type="hidden" value="@ViewBag.UserId" required asp-for="CreditCard.UserId" />
+                                                    <input type="hidden" value="ViewBag.FullName" required asp-for="CreditCard.Ownner" />
+                                                    <div class="row my-1">
+                                                        <div class="form-group"></div>
+                                                        <div class="col-10 offset-1 form-group">
+                                                           <select asp-items="Html.GetEnumSelectList<CardType>()" class="form-control mt-10" asp-for="CreditCard.Type">
+                                                               <option selected disabled>Select Card Type</option>
+                                                           </select>
+                                                            <span asp-validation-for="CreditCard.Type" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="col-10 offset-1 form-group">                                                           
+                                                            <input type="text" class="form-control"  asp-for="CreditCard.CardNumber" maxlength="12" placeholder="Card Number"  />
+                                                            <span asp-validation-for="CreditCard.CardNumber" class="text-danger"></span>
+                                                        </div>
+                                                            <div class="col-5 offset-1 form-group">
+                                                            <input type="text" class="form-control"  placeholder="Expire Date" minlength="4" maxlength="4" asp-for="CreditCard.Expiry" id="Expiry" />
+                                                            <span asp-validation-for="CreditCard.Expiry" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="col-5 form-group">
+                                                            <input type="text" class="form-control"  asp-for="CreditCard.Cvv" maxlength="3" min="3" placeholder="CVV" id="cvv" />
+                                                            <span asp-validation-for="CreditCard.Cvv" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                           </div>
+                                       </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-12 col-md-5 offset-md-7">
+                            <button type="submit" class="btn btn-primary form-control">Process Payment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+           
+            $('#Shipping').hide();
+
+            $("#CountryList").change(function() {
+
+                $("#StateList").empty();
+                $("#LgaList").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '/Location/LoadState',
+                    dataType: 'json',
+                    data: { id: $("#CountryList").val() },
+                    success: function(states) {
+                          $("#StateList").append('<option value="' + -1 + '">' + "Select State" + '</option>');
+                        $.each(states, function(i, state) {
+                            $("#StateList").append('<option  value="' + state.text + '">' + state.text + '</option>');
+                          
+                        });
+                    }, 
+                    error: function(ex) {
+                        alert("Failed to load state " + ex);
+                    }
+                });
+                return false;
+            });
+
+             $("#StateList").change(function() {
+
+                $("#LgaList").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '/Location/LoadLga',
+                    dataType: 'json',
+                    data: { id: $("#CountryList").val() },
+                    success: function(lgas) {
+                          $("#LgaList").append('<option value="' + -1 + '">' + "Select L.G.A / Cities" + '</option>');
+                          
+                        $.each(lgas, function(i, lga) {
+                            $("#LgaList").append('<option value="' + lga.text + '">' + lga.text + '</option>');
+                        });
+                    }, 
+                    error: function(ex) {
+                        alert("Failed to load Local Government/Cities " + ex);
+                    }
+                });
+                return false;
+            });
+
+            $("#submit").click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cart/SummaryPost',
+                    dataType: 'json',
+                    data: data,
+                    success: function(data) {
+                        alert(data);
+                    }, 
+                    error: function(ex) {
+                        alert("Error while saving " + ex);
+                    }
+                });
+            });
+
+
+            $("#btnShipping").click(function() {
+                $('#Shipping').fadeToggle();
+                if ($("#btnShipping").text("Update Shipping Details")) {
+                    $("#btnShipping").hide();
+                }
+               
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,125 @@
+﻿@model Rocky.Models.ShipOrder
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Shipping Details</h2>
+
+<div class="row">
+    @*Shipping Details*@
+    <div class="col-md-6">
+       <div>
+    
+    <dl class="row">
+        <dt class = "col-sm-3 h4">
+            Full Name
+        </dt>
+        <hr />
+        <dd class = "col-sm-9 h4">
+            @ViewBag.User
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.PostCode)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.PostCode)
+        </dd>
+        <dt class = "col-sm-3">
+           Address
+        </dt>
+        <dd class = "col-sm-9">
+            <address>
+                 @Html.DisplayFor(model => model.HouseNoOrBuilding), 
+                 @Html.DisplayFor(model => model.Street), <br />
+                 @Html.DisplayFor(model => model.Lga),
+                 @Html.DisplayFor(model => model.State) State <br />
+                 @Html.DisplayFor(model => model.Country)
+            </address>
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Order.Amount)
+        </dt>
+        <dd class = "col-sm-9">
+           @{var amount = Model.Order.Amount - Model.ShippingPrice;}
+           @amount
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.ShippingPrice)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.ShippingPrice)
+        </dd>
+        <dt class = "col-sm-3">
+            Tracking Number
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.TrackingId)
+        </dd>
+    </dl>
+</div>
+    </div>
+    @*Shipping Deteils*@
+    @*order details*@
+    <div class="col-md-6">
+      <blockquote>
+           <div>
+    
+    <dl class="row">
+       
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Order.Amount)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Order.Amount)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Order.OrderDate)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Order.DeliveryDate)
+        </dd>
+        <dt class = "col-sm-3">
+           Estimate @Html.DisplayNameFor(model => model.Order.DeliveryDate)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Order.OrderDate)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Order.Product)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Order.Product)
+        </dd>
+        <dt class = "col-sm-3 ">
+            @Html.DisplayNameFor(model => model.Order.OrderStatus)
+        </dt>   
+        <dd class = "col-sm-8">
+            @if( Model.Order.OrderStatus == false && @Model.Order.OrderDate.Date <= @Model.Order.OrderDate.AddDays(8))
+            {
+                <text>Goods Loading</text>
+            }
+            else if ( Model.Order.OrderStatus == false && Model.Order.OrderDate.Date <= Model.Order.OrderDate.AddDays(16))
+            {
+                <text>On Transit</text>
+            }
+            else if ( Model.Order.OrderStatus == false && Model.Order.OrderDate.Date <= Model.Order.OrderDate.AddDays(24))
+            {
+                <text>Customs Clearance</text>
+            }
+            else if ( Model.Order.OrderStatus == false && Model.Order.OrderDate.Date >= Model.Order.DeliveryDate)
+            {
+                <text>Goods Delivered</text>
+            }
+        </dd>
+    </dl>
+</div>
+      </blockquote>
+    </div>
+    @*order details*@
+</div>
+
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+    <a asp-action="Index">Back to List</a>
+</div>

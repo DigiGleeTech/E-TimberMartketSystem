@@ -1,0 +1,78 @@
+﻿@model Rocky.Models.Order
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div class="row">
+    @*order details*@
+    <div class="col-md-6">
+      <blockquote>
+           <div>
+    
+    <dl class="row">
+       
+        <dt class = "col-sm-5">
+            Name
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+         <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+        <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.DeliveryDate)
+        </dd>
+        <dt class = "col-sm-5">
+           Estimate @Html.DisplayNameFor(model => model.DeliveryDate)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.Product)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.Product)
+        </dd>
+        <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.OrderStatus)
+        </dt>   
+        <dd class = "col-sm-7">
+            @if( Model.OrderStatus == false && @Model.OrderDate.Date <= @Model.OrderDate.AddDays(8))
+            {
+                <text>Goods Loading</text>
+            }
+            else if ( Model.OrderStatus == false && Model.OrderDate.Date <= Model.OrderDate.AddDays(16))
+            {
+                <text>On Transit</text>
+            }
+            else if ( Model.OrderStatus == false && Model.OrderDate.Date <= Model.OrderDate.AddDays(24))
+            {
+                <text>Customs Clearance</text>
+            }
+            else if ( Model.OrderStatus == false && Model.OrderDate.Date >= Model.DeliveryDate)
+            {
+                <text>Goods Delivered</text>
+            }
+        </dd>
+    </dl>
+</div>
+      </blockquote>
+    </div>
+    @*order details*@
+</div>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+   
+</div>
+ <a asp-action="TrackOder">Back to List</a>

@@ -1,0 +1,133 @@
+﻿@model Rocky.Models.ShipOrder
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ShipOrder</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" value="@ViewBag.UserId" asp-for="UserId" />
+            <input type="hidden" value="@ViewBag.TrackingId"  asp-for="TrackingId"/>
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <select id="CountryList" asp-items="@ViewBag.Countries" required asp-for="Country" class="form-control">
+                    <option >-- Select Country --</option>
+                </select>
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label"></label>
+                  <select  id="StateList" asp-for="State" class="form-control">
+                    <option disabled>-- Select State --</option>
+                </select>
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lga" class="control-label"></label>
+                <select id="LgaList" asp-for="Lga" required class="form-control">
+                    <option disabled>-- Select L.G.A/City --</option>
+                </select>
+                <span asp-validation-for="Lga" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostCode" class="control-label"></label>
+                <input asp-for="PostCode" class="form-control" />
+                <span asp-validation-for="PostCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HouseNoOrBuilding" class="control-label"></label>
+                <input asp-for="HouseNoOrBuilding" class="form-control" />
+                <span asp-validation-for="HouseNoOrBuilding" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Street" class="control-label"></label>
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="ShippingPrice" class="control-label"></label>
+                <input asp-for="ShippingPrice" class="form-control" />
+                <span asp-validation-for="ShippingPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrackingId" class="control-label"></label>
+                <input asp-for="TrackingId" class="form-control" />
+                <span asp-validation-for="TrackingId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderId" class="control-label"></label>
+                <select asp-for="OrderId" class ="form-control" asp-items="ViewBag.OrderId"></select>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+     <script>
+        $(document).ready(function() {
+           
+            $('#Shipping').hide();
+
+            $("#CountryList").change(function() {
+
+                $("#StateList").empty();
+                $("#LgaList").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '/Location/LoadState',
+                    dataType: 'json',
+                    data: { id: $("#CountryList").val() },
+                    success: function(states) {
+                          $("#StateList").append('<option value="' + -1 + '">' + "Select State" + '</option>');
+                        $.each(states, function(i, state) {
+                            $("#StateList").append('<option  value="' + state.text + '">' + state.text + '</option>');
+                          
+                        });
+                    }, 
+                    error: function(ex) {
+                        alert("Failed to load state " + ex);
+                    }
+                });
+                return false;
+            });
+
+             $("#StateList").change(function() {
+
+                $("#LgaList").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '/Location/LoadLga',
+                    dataType: 'json',
+                    data: { id: $("#CountryList").val() },
+                    success: function(lgas) {
+                          $("#LgaList").append('<option value="' + -1 + '">' + "Select L.G.A / Cities" + '</option>');
+                          
+                        $.each(lgas, function(i, lga) {
+                            $("#LgaList").append('<option value="' + lga.text + '">' + lga.text + '</option>');
+                        });
+                    }, 
+                    error: function(ex) {
+                        alert("Failed to load Local Government/Cities " + ex);
+                    }
+                });
+                return false;
+            });
+
+
+        });
+    </script>
+}

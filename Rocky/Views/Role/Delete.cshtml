@@ -1,0 +1,29 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+@{
+    ViewBag.Title = "CreateRole";
+   
+}
+
+<h2>Delete</h2>
+
+@using (Html.BeginForm("Delete", "Role"))
+{
+    <span class="alert text-da2ViewBag.Messagenger"></span>
+    <input type="hidden" value="@ViewBag.Id" />
+    <div class="form-group col-5">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class="form-control"})
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <input type="submit" value="Submit" id="Delete" class="btn btn-primary btn-lg col-2 offset-3" /> 
+}
+
+@section Scripts{
+    <script>
+$(document).ready(function() {
+    $("#Delete").click(function() {
+        confirm("Do you really wanna delete this?");
+    });
+});
+    </script>
+}

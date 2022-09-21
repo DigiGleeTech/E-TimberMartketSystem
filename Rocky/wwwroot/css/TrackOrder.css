@@ -1,0 +1,95 @@
+﻿
+@keyframes blink {
+    50%
+
+{
+    opacity: 0.0;
+}
+
+}
+
+/*Goods Loading*/
+.GoodsLoading {
+    animation: blink 1s step-start 0s infinite;
+}
+
+.GoodsLoading {
+    width: 50px;
+    height: 50px;
+    margin-left: 100px;
+    border-radius: 50px;
+    background-color: #342ab8;
+    padding: 10px;
+    text-align: center;
+    line-height: 50px;
+}
+
+/*On Transit*/
+.Transit {
+    animation: blink 1s step-start 0s infinite;
+}
+
+.Transit {
+    width: 50px;
+    height: 50px;
+    margin-left: 50px;
+    border-radius: 50px;
+    background-color: #342ab8;
+    padding: 10px;
+    text-align: center;
+    line-height: 50px;
+}
+
+/*Customs*/
+.Customs {
+    animation: blink 1s step-start 0s infinite;
+}
+
+.Customs {
+    width: 50px;
+    height: 50px;
+    margin-left: 120px;
+    border-radius: 50px;
+    background-color: #342ab8;
+    padding: 10px;
+    text-align: center;
+    line-height: 50px;
+}
+
+
+/*Delivery*/
+.Delivery {
+    animation: blink 1s step-start 0s infinite;
+}
+
+.Delivery {
+    width: 50px;
+    height: 50px;
+    margin-left: 110px;
+    border-radius: 50px;
+    background-color: #342ab8;
+    padding: 10px;
+    text-align: center;
+    line-height: 50px;
+}
+/*
+span {
+    font-size: 26px;
+    font-family: cursive;
+    color: #fff;
+    animation: blink 2s linear infinite;
+}
+*/
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: .5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

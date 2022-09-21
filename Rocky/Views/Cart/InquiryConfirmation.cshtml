@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Rocky.Models.ApplicationUser>
+<div class="text-center">
+
+    <h1 class="text-info">Inquiry Confirmation</h1>
+    
+
+    <p>We have recieved your inquiry and someone from our team will contact you shortly!</p>
+   @* <h3>@Html.DisplayNameFor(m=>m.Order.Owner); 
+        @{
+            Model.Select(c=>c.Order.Id).LastOrDefault();
+            var pro = Model.Last();
+        }</h3>
+    @if (pro.TrackingId == pro.TrackingId)
+   {
+        <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order.Owner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order.OrderStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipOrder.Country)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Order.Product)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @pro.Order.Owner
+            </td>
+            <td>
+               @{
+                   if (DateTime.UtcNow != pro.Order.DeliveryDate)
+                   {
+                       <text>OnProcess </text>
+                   }else{
+                       //reove order
+                       <text>Delivered</text>
+                   }
+               }
+            </td>
+            <td>
+                @pro.ShipOrder.Country
+            </td>
+             <td>
+                        @{
+                            var prod = "";
+                            foreach (var track in  pro.Order.Product)
+                            {
+                                prod += track;
+                            }
+                        }
+                       <div>@prod;</div> 
+            </td>
+        </tr>
+    </tbody>
+        </table>
+    }
+    else
+    {
+        <text>No Matching Traking id</text>
+    }
+    <h2>  </h2>*@
+   
+    <img src="/images/patio.jpg" width="80%" />
+</div>
+
+                            
+@section Scripts{
+    <script>
+$(document).ready(function() {
+})
+    </script>
+}
